@@ -1,4 +1,5 @@
 import random
+from Matrix import Matrix
 
 class Minesweeper:
   RATE = 0.16
@@ -6,26 +7,23 @@ class Minesweeper:
   EMPTY= 0
 
   def __init__(self):
-    self.width = 16
-    self.height = 16
+    self.width = 6
+    self.height = 6
     self.amount_of_mines = int((self.width * self.height) * Minesweeper.RATE)
     self.mines_position = self.mines_generator()
-    self.grid = self.create_grid()
 
-  def empty_row(self):
-    return [Minesweeper.EMPTY for i in range(self.width)]
-  
-  def create_grid(self):
-    grid = [self.empty_row() for i in range(self.height)]
+    self.grid = Matrix(self.height, self.width)
 
-    # adding mines in the grid
+    self.grid = self.mines_populate(self.grid)
+    self.grid = self.count_mines_around(self.grid)
+
+
+  def mines_populate(self, grid):
     for (i, j) in self.mines_position:
-      grid[i][j] = Minesweeper.MINE
+      grid.set_element(i, j, Minesweeper.MINE)
 
-    # counting mines around the cells
-    grid = self.count_mines_around(grid)
-    
     return grid
+
 
   def mines_generator(self):
     mines_position = set()
@@ -40,25 +38,28 @@ class Minesweeper:
 
     return mines_position
 
+
   def check_mine(self, grid, row, col):
     if row < 0 or row >= self.height:
       return False
     if col < 0 or col >= self.width:
       return False
-    if grid[row][col] != Minesweeper.MINE:
+    if grid.get_element(row, col) != Minesweeper.MINE:
       return False
 
     return True
 
 
   def count_mines_around(self, grid):
-    # possible moviments
+    # neighbourhood
     mov_row = [0,1, 0,-1, 1,-1, 1,-1]
     mov_col = [1,0,-1, 0,-1, 1, 1,-1]
 
     for row in range(self.height):
       for col in range(self.width):
-          if grid[row][col] == Minesweeper.MINE:
+          element = grid.get_element(row, col)
+
+          if element == Minesweeper.MINE:
             continue
 
           for step in range(8):
@@ -66,7 +67,7 @@ class Minesweeper:
             j = col + mov_col[step]
 
             if self.check_mine(grid, i, j):
-              grid[row][col] += 1
+              grid.set_element(row, col, 1 + element)
 
     return grid
-  
+

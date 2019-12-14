@@ -1,3 +1,6 @@
 ## Campo Minado (Minesweeper)
 
-Implementado em Python 3
+### Executar
+```
+python3 game.py
+```
