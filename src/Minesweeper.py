@@ -11,11 +11,14 @@ class Minesweeper:
     self.height = 6
     self.amount_of_mines = int((self.width * self.height) * Minesweeper.RATE)
     self.mines_position = self.mines_generator()
+    self.amount_of_free_squares = (self.width * self.height) - self.amount_of_mines
 
     self.grid = Matrix(self.height, self.width)
-
     self.grid = self.mines_populate(self.grid)
     self.grid = self.count_mines_around(self.grid)
+
+  def update_free_squares(self):
+    self.amount_of_free_squares -= 1
 
   def mines_populate(self, grid):
     for (i, j) in self.mines_position:

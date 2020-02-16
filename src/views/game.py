@@ -16,11 +16,10 @@ def show_celula(element, secret_field, show_mines=False):
   else:
     print(YELLOW + '%4s' %(EMPTY) + COLOR_END, end='')
 
-def show_formatted_grid(grid, grid_state, r, c):
+def show_formatted_grid(grid, grid_state, status, r, c):
   os.system('clear')
-  print('%19s\n' %('CAMPO MINADO'))
+  print('%23s\n' %('CAMPO MINADO'))
 
-  status = game_status(grid.get_element(r, c))
   # horizontal numbering
   for col in range(grid.width):
     if col == 0:
@@ -49,11 +48,12 @@ def show_formatted_grid(grid, grid_state, r, c):
 
     print()
 
-  return status
-
 def coordinates_by_user():
   return [int(i) for i in input('\n       insira as coordenadas: ').split(' ')]
 
+def show(msg):
+  print('\n\n%23s\n' %msg)
+  input('Aperte qualquer tecla para continuar...')
 
 def select_menu():
   os.system('clear')

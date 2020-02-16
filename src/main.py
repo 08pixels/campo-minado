@@ -15,20 +15,15 @@ while True:
     status = GAMING
 
     while status == GAMING:
-      status = show_formatted_grid(game.grid, grid_state, row, column)
+      status = game_status(game, grid_state, game.grid.get_element(row,column))
+      show_formatted_grid(game.grid, grid_state, status, row, column)
 
       if status == GAME_OVER:
-        print('GAME OVER')
-        print('Aperte qualquer tecla para continuar')
-        input()
-        break
-      if status == GAME_WIN:
-        print('YOU WON')
-        print('Aperte qualquer tecla para continuar')
-        input()
-        break
-
-      row, column = coordinates_by_user()
+        show('VOCÊ PERDEU!')
+      elif status == GAME_WIN:
+        show('VOCÊ VENCEU!!!')
+      else:
+        row, column = coordinates_by_user()
 
   elif op == '2': # sair
     break
