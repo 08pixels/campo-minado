@@ -17,13 +17,11 @@ class Minesweeper:
     self.grid = self.mines_populate(self.grid)
     self.grid = self.count_mines_around(self.grid)
 
-
   def mines_populate(self, grid):
     for (i, j) in self.mines_position:
       grid.set_element(i, j, Minesweeper.MINE)
 
     return grid
-
 
   def mines_generator(self):
     mines_position = set()
@@ -38,7 +36,6 @@ class Minesweeper:
 
     return mines_position
 
-
   def check_mine(self, grid, row, col):
     if row < 0 or row >= self.height:
       return False
@@ -48,7 +45,6 @@ class Minesweeper:
       return False
 
     return True
-
 
   def count_mines_around(self, grid):
     # neighbourhood
@@ -67,7 +63,7 @@ class Minesweeper:
             j = col + mov_col[step]
 
             if self.check_mine(grid, i, j):
-              grid.set_element(row, col, 1 + element)
+              grid.set_element(row, col, 1 + grid.get_element(row, col))
 
     return grid
 

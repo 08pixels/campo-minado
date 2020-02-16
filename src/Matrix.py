@@ -14,12 +14,9 @@ class Matrix:
 
     return grid
 
-
   def get_element(self, pos_i, pos_j):
     return self.grid[pos_i][pos_j]
 
-
   def set_element(self, pos_i, pos_j, element):
     self.grid[pos_i][pos_j] = element
-
 
