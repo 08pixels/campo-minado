@@ -3,10 +3,15 @@ from .text import theme
 
 import sys
 sys.path.append('..')
-import Minesweeper
+from Minesweeper import Minesweeper
 
-sys.path.append('controllers')
-from gameController import *
+EMPTY = '◻'
+MINE  = '💣'
+
+YELLOW    = '\033[93m'
+GREEN     = '\033[92m'
+RED       = '\033[31m'
+COLOR_END = '\033[0;0m'
 
 def show_celula(element, secret_field, show_mines=False):
   if show_mines and secret_field == Minesweeper.MINE:
@@ -16,9 +21,12 @@ def show_celula(element, secret_field, show_mines=False):
   else:
     print(YELLOW + '%4s' %(EMPTY) + COLOR_END, end='')
 
-def show_formatted_grid(grid, grid_state, status, r, c):
+def show_formatted_grid(game, status):
   os.system('clear')
   print('%23s\n' %('CAMPO MINADO'))
+
+  grid = game.grid
+  grid_state = game.grid_state
 
   # horizontal numbering
   for col in range(grid.width):
@@ -29,33 +37,29 @@ def show_formatted_grid(grid, grid_state, status, r, c):
     else:
       print("%4d" %(col))
 
-
   for row in range(grid.height):
     # vertical numbering
     print('%4d' %(row), end='')
 
     for col in range(grid.width):
-      if r == row and c == col:
-        grid_state.set_element(row, col, 1)
-
       element = grid_state.get_element(row, col)
       secret_field = grid.get_element(row, col)
 
-      if status == GAME_OVER or status == GAME_WIN:
+      if status == Minesweeper.GAME_OVER or status == Minesweeper.GAME_WIN:
         show_celula(element, secret_field, True)
       else:
         show_celula(element, secret_field, False)
 
     print()
 
-def coordinates_by_user():
-  return [int(i) for i in input('\n       insira as coordenadas: ').split(' ')]
+def get_coordinates():
+  return [int(i) for i in input('\n       insira as coordenadas: ').split()]
 
-def show(msg):
-  print('\n\n%23s\n' %msg)
+def show_end_message(msg):
+  print('\n\n%23s\n' %(msg))
   input('Aperte qualquer tecla para continuar...')
 
-def select_menu():
+def selection_menu():
   os.system('clear')
 
   print(theme)

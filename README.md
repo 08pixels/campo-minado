@@ -1,10 +1,12 @@
 ## Campo Minado (Minesweeper)
 
 ### Executar
+Na pasta `src`
+
 ```
 python3 main.py
 ```
 
-### Todo
-- [ ] expandir espaços vazios
+### Demonstração
 
+![](assets/demo.gif)

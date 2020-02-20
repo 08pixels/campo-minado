@@ -1,29 +1,27 @@
-import os
-
 from views.game import *
-from controllers.gameController import *
 from Minesweeper import Minesweeper
 
 while True:
-  op = select_menu()
+  op = selection_menu()
 
   if op == '1':
     game = Minesweeper()
-    grid_state = Matrix(game.height, game.width)
+    # an invalid position
     row, column = -1, -1
 
-    status = GAMING
+    status = Minesweeper.GAMING
 
-    while status == GAMING:
-      status = game_status(game, grid_state, game.grid.get_element(row,column))
-      show_formatted_grid(game.grid, grid_state, status, row, column)
+    while status == Minesweeper.GAMING:
+      game.make_moviment(row, column)
+      status = game.get_status(row, column)
+      show_formatted_grid(game, status)
 
-      if status == GAME_OVER:
-        show('VOCÊ PERDEU!')
-      elif status == GAME_WIN:
-        show('VOCÊ VENCEU!!!')
+      if status == Minesweeper.GAME_OVER:
+        show_end_message('VOCÊ PERDEU!')
+      elif status == Minesweeper.GAME_WIN:
+        show_end_message('VOCÊ VENCEU!!!')
       else:
-        row, column = coordinates_by_user()
+        row, column = get_coordinates()
 
   elif op == '2': # sair
     break
