@@ -2,13 +2,9 @@
 
 ### Executar
 ```
-python3 game.py
+python3 main.py
 ```
 
 ### Todo
-- [x] ícone para bomba  
-- [x] criar menu simples
-- [ ] status do jogo (game over, win)
-  - [x] mostrar todas as posições das bombas (game over)
-  - [ ] mostrar emociton ascii (win)
-- [ ] expandir espaços vazios (possivelmente)  
+- [ ] expandir espaços vazios
+
