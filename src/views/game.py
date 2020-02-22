@@ -23,7 +23,9 @@ def show_celula(element, secret_field, show_mines=False):
 
 def show_formatted_grid(game, status):
   os.system('clear')
-  print('%23s\n' %('CAMPO MINADO'))
+
+  print('%23s' %'CAMPO MINADO')
+  print('%29s\n' %('QUANTIDADE DE MINAS: %d' %(game.amount_of_mines)))
 
   grid = game.grid
   grid_state = game.grid_state
@@ -53,7 +55,13 @@ def show_formatted_grid(game, status):
     print()
 
 def get_coordinates():
-  return [int(i) for i in input('\n       insira as coordenadas: ').split()]
+
+  try:
+    coordinate = [int(i) for i in input('\n       insira as coordenadas: ').split()]
+  except:
+    return [-1, -1]
+
+  return coordinate if (len(coordinate) == 2) else [-1, -1]
 
 def show_end_message(msg):
   print('\n\n%23s\n' %(msg))

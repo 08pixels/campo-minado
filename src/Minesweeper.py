@@ -84,6 +84,9 @@ class Minesweeper:
     return grid
 
   def open_empty_squares(self, row, col):
+    self.update_free_squares()
+    self.grid_state.set_element(row, col, 1)
+
     # neighbourhood
     mov_row = [0,1, 0,-1, 1,-1, 1,-1]
     mov_col = [1,0,-1, 0,-1, 1, 1,-1]
@@ -102,9 +105,8 @@ class Minesweeper:
       if self.grid_state.get_element(adj_row, adj_col) != Matrix.EMPTY:
         continue
 
-      self.update_free_squares()
-      self.grid_state.set_element(adj_row, adj_col, 1)
       self.open_empty_squares(adj_row, adj_col)
+
 
   def validate_coordinates(self, row,col):
     if row < 0 or col < 0:
@@ -114,7 +116,7 @@ class Minesweeper:
     
     return True
 
-  def make_moviment(self, row, col):
+  def make_moviment(self, row=-1, col=-1):
     if not self.validate_coordinates(row, col):
       return 
 

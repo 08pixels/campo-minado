@@ -8,7 +8,6 @@ while True:
     game = Minesweeper()
     # an invalid position
     row, column = -1, -1
-
     status = Minesweeper.GAMING
 
     while status == Minesweeper.GAMING:
